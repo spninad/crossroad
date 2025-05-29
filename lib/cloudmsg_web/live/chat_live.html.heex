@@ -1,0 +1,142 @@
+<div class="flex h-screen bg-gray-100">
+  <!-- Sidebar -->
+  <div class="w-64 bg-indigo-700 text-white flex flex-col">
+    <div class="p-4 bg-indigo-800">
+      <h1 class="text-xl font-bold">CloudMsg Chat</h1>
+      <div class="mt-2 text-sm opacity-75">
+        <span>#{@username}</span>
+        <button
+          phx-click="change_username"
+          class="ml-2 text-xs underline hover:no-underline"
+        >
+          change
+        </button>
+      </div>
+    </div>
+    
+    <!-- Room List -->
+    <div class="flex-1 p-4">
+      <h3 class="text-sm font-semibold mb-3 opacity-75">ROOMS</h3>
+      
+      <!-- Current Room -->
+      <div class="mb-2">
+        <div class="flex items-center px-2 py-1 rounded bg-indigo-600">
+          <span class="text-white"># <%= @room %></span>
+        </div>
+      </div>
+      
+      <!-- Other Rooms -->
+      <%= for room <- @rooms do %>
+        <%= if room != @room do %>
+          <div class="mb-1">
+            <.link
+              navigate={~p"/room/#{room}"}
+              class="block px-2 py-1 rounded hover:bg-indigo-600 text-gray-300 hover:text-white"
+            >
+              # <%= room %>
+            </.link>
+          </div>
+        <% end %>
+      <% end %>
+      
+      <!-- Join New Room -->
+      <div class="mt-4">
+        <.form for={%{}} phx-submit="join_room" class="space-y-2">
+          <input
+            type="text"
+            name="room_name"
+            placeholder="Join room..."
+            class="w-full px-3 py-1 text-sm text-gray-800 rounded border-0 focus:ring-2 focus:ring-indigo-300"
+          />
+          <button
+            type="submit"
+            class="w-full text-xs px-3 py-1 bg-indigo-600 hover:bg-indigo-500 rounded text-white"
+          >
+            Join Room
+          </button>
+        </.form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Chat Area -->
+  <div class="flex-1 flex flex-col">
+    <!-- Chat Header -->
+    <div class="bg-white border-b border-gray-200 px-6 py-4">
+      <h2 class="text-lg font-semibold text-gray-800"># <%= @room %></h2>
+    </div>
+    
+    <!-- Messages -->
+    <div class="flex-1 overflow-y-auto p-6 space-y-4" id="messages" phx-hook="ScrollToBottom">
+      <%= for message <- Enum.reverse(@messages) do %>
+        <div class="flex space-x-3">
+          <div class="flex-shrink-0">
+            <div class="w-8 h-8 bg-indigo-500 rounded-full flex items-center justify-center text-white text-sm font-semibold">
+              <%= String.first(message.user || "?") %>
+            </div>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-baseline space-x-2">
+              <span class="font-semibold text-gray-900"><%= message.user || "Anonymous" %></span>
+              <span class="text-xs text-gray-500"><%= format_timestamp(message.timestamp) %></span>
+            </div>
+            <p class="text-gray-700 mt-1"><%= message.content %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    
+    <!-- Message Input -->
+    <div class="bg-white border-t border-gray-200 p-6">
+      <.form for={%{}} phx-submit="send_message" phx-change="update_content" class="flex space-x-3">
+        <input
+          type="text"
+          name="message[content]"
+          value={@message_content}
+          placeholder={"Message ##{@room}"}
+          class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+          autocomplete="off"
+        />
+        <button
+          type="submit"
+          class="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium"
+        >
+          Send
+        </button>
+      </.form>
+    </div>
+  </div>
+</div>
+
+<!-- Username Modal -->
+<%= if @show_username_form do %>
+  <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-lg p-6 w-full max-w-md">
+      <h3 class="text-lg font-semibold mb-4">Change Username</h3>
+      <.form for={%{}} phx-submit="save_username" class="space-y-4">
+        <input
+          type="text"
+          name="username[name]"
+          value={@username}
+          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+          placeholder="Enter username"
+        />
+        <div class="flex space-x-3">
+          <button
+            type="submit"
+            class="flex-1 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg"
+          >
+            Save
+          </button>
+          <button
+            type="button"
+            phx-click="cancel_username"
+            class="flex-1 px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-700 rounded-lg"
+          >
+            Cancel
+          </button>
+        </div>
+      </.form>
+    </div>
+  </div>
+<% end %>
