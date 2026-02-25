@@ -10,15 +10,15 @@ defmodule Cloudmsg.Application do
     children = [
       CloudmsgWeb.Telemetry,
       {DNSCluster, query: Application.get_env(:cloudmsg, :dns_cluster_query) || :ignore},
-      {Phoenix.PubSub, name: Cloudmsg.PubSub},
-      # Start a worker by calling: Cloudmsg.Worker.start_link(arg)
-      # {Cloudmsg.Worker, arg},
-      # Start to serve requests, typically the last entry
+      # Manifold PubSub system
+      Cloudmsg.Router,
+      # Session management
+      Cloudmsg.Session.Registry,
+      Cloudmsg.Session.Presence,
+      # Phoenix Endpoint (must be last)
       CloudmsgWeb.Endpoint
     ]
 
-    # See https://hexdocs.pm/elixir/Supervisor.html
-    # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Cloudmsg.Supervisor]
     Supervisor.start_link(children, opts)
   end
