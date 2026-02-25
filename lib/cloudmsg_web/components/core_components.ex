@@ -1,4 +1,4 @@
-defmodule CloudmsgWeb.CoreComponents do
+defmodule CrossroadWeb.CoreComponents do
   @moduledoc """
   Provides core UI components.
 
@@ -27,7 +27,7 @@ defmodule CloudmsgWeb.CoreComponents do
 
   """
   use Phoenix.Component
-  use Gettext, backend: CloudmsgWeb.Gettext
+  use Gettext, backend: CrossroadWeb.Gettext
 
   @doc """
   Renders flash notices.
@@ -458,9 +458,9 @@ defmodule CloudmsgWeb.CoreComponents do
     # with our gettext backend as first argument. Translations are
     # available in the errors.po file (as we use the "errors" domain).
     if count = opts[:count] do
-      Gettext.dngettext(CloudmsgWeb.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(CrossroadWeb.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(CloudmsgWeb.Gettext, "errors", msg, opts)
+      Gettext.dgettext(CrossroadWeb.Gettext, "errors", msg, opts)
     end
   end
 

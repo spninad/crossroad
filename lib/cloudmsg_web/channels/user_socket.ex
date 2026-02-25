@@ -1,4 +1,4 @@
-defmodule CloudmsgWeb.UserSocket do
+defmodule CrossroadWeb.UserSocket do
   @moduledoc """
   Phoenix UserSocket for CloudMsg WebSocket connections.
 
@@ -9,7 +9,7 @@ defmodule CloudmsgWeb.UserSocket do
   use Phoenix.Socket
 
   # Channels
-  channel "chat:*", CloudmsgWeb.ChatChannel
+  channel "chat:*", CrossroadWeb.ChatChannel
 
   @impl true
   def connect(params, socket, _connect_info) do
@@ -17,7 +17,7 @@ defmodule CloudmsgWeb.UserSocket do
     user_id = params["user_id"] || generate_user_id()
 
     # Set Manifold partitioner key for consistent routing
-    Cloudmsg.Router.set_partitioner_key(user_id)
+    Crossroad.Router.set_partitioner_key(user_id)
 
     {:ok, assign(socket, :user_id, user_id)}
   end

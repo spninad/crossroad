@@ -1,4 +1,4 @@
-defmodule CloudmsgWeb.ChatChannel do
+defmodule CrossroadWeb.ChatChannel do
   @moduledoc """
   Phoenix Channel for CloudMsg chat rooms.
 
@@ -6,15 +6,15 @@ defmodule CloudmsgWeb.ChatChannel do
   Presence for tracking online users.
   """
 
-  use CloudmsgWeb, :channel
+  use CrossroadWeb, :channel
 
-  alias Cloudmsg.{PubSub, Session.Presence}
+  alias Crossroad.{PubSub, Session.Presence}
 
   @impl true
   def join("chat:" <> room_id, _payload, socket) do
     # Set partitioner key for consistent routing
     user_id = socket.assigns[:user_id] || generate_user_id()
-    Cloudmsg.Router.set_partitioner_key(user_id)
+    Crossroad.Router.set_partitioner_key(user_id)
 
     socket =
       socket
@@ -57,7 +57,7 @@ defmodule CloudmsgWeb.ChatChannel do
   end
 
   @impl true
-  def handle_info({:cloudmsg_broadcast, _room_id, message}, socket) do
+  def handle_info({:crossroad_broadcast, _room_id, message}, socket) do
     push(socket, "new_msg", message)
     {:noreply, socket}
   end

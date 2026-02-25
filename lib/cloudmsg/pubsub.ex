@@ -1,4 +1,4 @@
-defmodule Cloudmsg.PubSub do
+defmodule Crossroad.PubSub do
   @moduledoc """
   Public API for the CloudMsg publish-subscribe system.
 
@@ -18,7 +18,7 @@ defmodule Cloudmsg.PubSub do
       CloudMsg.PubSub.unsubscribe("room:lobby", self())
   """
 
-  alias Cloudmsg.{Router, Session.Registry}
+  alias Crossroad.{Router, Session.Registry}
 
   @doc """
   Subscribes a PID to receive messages from a room.
@@ -62,7 +62,7 @@ defmodule Cloudmsg.PubSub do
         :ok
 
       pids when is_list(pids) ->
-        Router.send(pids, {:cloudmsg_broadcast, room_id, message}, opts)
+        Router.send(pids, {:crossroad_broadcast, room_id, message}, opts)
     end
   end
 

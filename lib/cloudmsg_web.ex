@@ -1,12 +1,12 @@
-defmodule CloudmsgWeb do
+defmodule CrossroadWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, components, channels, and so on.
 
   This can be used in your application as:
 
-      use CloudmsgWeb, :controller
-      use CloudmsgWeb, :html
+      use CrossroadWeb, :controller
+      use CrossroadWeb, :html
 
   The definitions below will be executed for every controller,
   component, etc, so keep them short and clean, focused
@@ -40,7 +40,7 @@ defmodule CloudmsgWeb do
     quote do
       use Phoenix.Controller, formats: [:html, :json]
 
-      use Gettext, backend: CloudmsgWeb.Gettext
+      use Gettext, backend: CrossroadWeb.Gettext
 
       import Plug.Conn
 
@@ -80,16 +80,16 @@ defmodule CloudmsgWeb do
   defp html_helpers do
     quote do
       # Translation
-      use Gettext, backend: CloudmsgWeb.Gettext
+      use Gettext, backend: CrossroadWeb.Gettext
 
       # HTML escaping functionality
       import Phoenix.HTML
       # Core UI components
-      import CloudmsgWeb.CoreComponents
+      import CrossroadWeb.CoreComponents
 
       # Common modules used in templates
       alias Phoenix.LiveView.JS
-      alias CloudmsgWeb.Layouts
+      alias CrossroadWeb.Layouts
 
       # Routes generation with the ~p sigil
       unquote(verified_routes())
@@ -99,9 +99,9 @@ defmodule CloudmsgWeb do
   def verified_routes do
     quote do
       use Phoenix.VerifiedRoutes,
-        endpoint: CloudmsgWeb.Endpoint,
-        router: CloudmsgWeb.Router,
-        statics: CloudmsgWeb.static_paths()
+        endpoint: CrossroadWeb.Endpoint,
+        router: CrossroadWeb.Router,
+        statics: CrossroadWeb.static_paths()
     end
   end
 

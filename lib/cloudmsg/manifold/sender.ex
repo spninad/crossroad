@@ -1,4 +1,4 @@
-defmodule Cloudmsg.Manifold.Sender do
+defmodule Crossroad.Manifold.Sender do
   @moduledoc """
   Pool of processes for offloading large message sends from the caller.
 
@@ -12,9 +12,9 @@ defmodule Cloudmsg.Manifold.Sender do
 
   use GenServer
 
-  alias Cloudmsg.Manifold.Utils
+  alias Crossroad.Manifold.Utils
 
-  @gen_module Application.compile_env(:cloudmsg, :gen_module, GenServer)
+  @gen_module Application.compile_env(:crossroad, :gen_module, GenServer)
 
   ## Client API
 
@@ -58,7 +58,7 @@ defmodule Cloudmsg.Manifold.Sender do
       end)
 
     for {node, node_pids} <- grouped_by, node != nil do
-      Cloudmsg.Manifold.Partitioner.send({partitioner, node}, node_pids, message)
+      Crossroad.Manifold.Partitioner.send({partitioner, node}, node_pids, message)
     end
 
     {:noreply, nil}

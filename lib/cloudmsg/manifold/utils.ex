@@ -1,4 +1,4 @@
-defmodule Cloudmsg.Manifold.Utils do
+defmodule Crossroad.Manifold.Utils do
   @moduledoc """
   Utility functions for the Manifold message broadcasting system.
   Provides fast grouping, partitioning, hashing, and message packing.
@@ -71,8 +71,8 @@ defmodule Cloudmsg.Manifold.Utils do
   """
   @spec next_hibernate_delay() :: integer
   def next_hibernate_delay() do
-    hibernate_delay = Application.get_env(:cloudmsg, :hibernate_delay, 60_000)
-    hibernate_jitter = Application.get_env(:cloudmsg, :hibernate_jitter, 30_000)
+    hibernate_delay = Application.get_env(:crossroad, :hibernate_delay, 60_000)
+    hibernate_jitter = Application.get_env(:crossroad, :hibernate_jitter, 30_000)
 
     hibernate_delay + :rand.uniform(hibernate_jitter)
   end

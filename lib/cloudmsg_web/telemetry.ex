@@ -1,4 +1,4 @@
-defmodule CloudmsgWeb.Telemetry do
+defmodule CrossroadWeb.Telemetry do
   use Supervisor
   import Telemetry.Metrics
 
@@ -64,7 +64,7 @@ defmodule CloudmsgWeb.Telemetry do
     [
       # A module, function and arguments to be invoked periodically.
       # This function must call :telemetry.execute/3 and a metric must be added above.
-      # {CloudmsgWeb, :count_users, []}
+      # {CrossroadWeb, :count_users, []}
     ]
   end
 end

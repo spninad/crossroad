@@ -1,10 +1,10 @@
-defmodule Cloudmsg.Session.Registry do
+defmodule Crossroad.Session.Registry do
   @moduledoc """
   ETS-backed registry for mapping room IDs to subscriber PIDs.
 
   Maintains two ETS tables:
-  - `:cloudmsg_room_subscribers` - Maps room_id to {pid, metadata} pairs (bag table)
-  - `:cloudmsg_pid_rooms` - Maps pid to list of room_ids for fast cleanup (set table)
+  - `:crossroad_room_subscribers` - Maps room_id to {pid, metadata} pairs (bag table)
+  - `:crossroad_pid_rooms` - Maps pid to list of room_ids for fast cleanup (set table)
 
   All operations are atomic and support concurrent access.
   """
@@ -13,8 +13,8 @@ defmodule Cloudmsg.Session.Registry do
 
   require Logger
 
-  @room_table :cloudmsg_room_subscribers
-  @pid_table :cloudmsg_pid_rooms
+  @room_table :crossroad_room_subscribers
+  @pid_table :crossroad_pid_rooms
 
   ## Client API
 

@@ -1,4 +1,4 @@
-defmodule Cloudmsg.Session.Presence do
+defmodule Crossroad.Session.Presence do
   @moduledoc """
   CRDT-based presence tracking for online/offline status.
 
@@ -256,7 +256,7 @@ defmodule Cloudmsg.Session.Presence do
 
   defp broadcast_diff(room_id, diff) do
     # Broadcast presence diff to all subscribers
-    Cloudmsg.PubSub.broadcast(
+    Crossroad.PubSub.broadcast(
       room_id,
       {:presence_diff, diff}
     )

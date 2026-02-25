@@ -1,4 +1,4 @@
-defmodule Cloudmsg.Application do
+defmodule Crossroad.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
@@ -8,18 +8,18 @@ defmodule Cloudmsg.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      CloudmsgWeb.Telemetry,
-      {DNSCluster, query: Application.get_env(:cloudmsg, :dns_cluster_query) || :ignore},
+      CrossroadWeb.Telemetry,
+      {DNSCluster, query: Application.get_env(:crossroad, :dns_cluster_query) || :ignore},
       # Manifold PubSub system
-      Cloudmsg.Router,
+      Crossroad.Router,
       # Session management
-      Cloudmsg.Session.Registry,
-      Cloudmsg.Session.Presence,
+      Crossroad.Session.Registry,
+      Crossroad.Session.Presence,
       # Phoenix Endpoint (must be last)
-      CloudmsgWeb.Endpoint
+      CrossroadWeb.Endpoint
     ]
 
-    opts = [strategy: :one_for_one, name: Cloudmsg.Supervisor]
+    opts = [strategy: :one_for_one, name: Crossroad.Supervisor]
     Supervisor.start_link(children, opts)
   end
 
@@ -27,7 +27,7 @@ defmodule Cloudmsg.Application do
   # whenever the application is updated.
   @impl true
   def config_change(changed, _new, removed) do
-    CloudmsgWeb.Endpoint.config_change(changed, removed)
+    CrossroadWeb.Endpoint.config_change(changed, removed)
     :ok
   end
 end

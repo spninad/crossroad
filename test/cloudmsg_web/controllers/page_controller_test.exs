@@ -1,5 +1,5 @@
-defmodule CloudmsgWeb.PageControllerTest do
-  use CloudmsgWeb.ConnCase
+defmodule CrossroadWeb.PageControllerTest do
+  use CrossroadWeb.ConnCase
 
   test "GET /", %{conn: conn} do
     conn = get(conn, ~p"/")

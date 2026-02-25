@@ -1,4 +1,4 @@
-defmodule Cloudmsg.Manifold.Partitioner do
+defmodule Crossroad.Manifold.Partitioner do
   @moduledoc """
   Per-node message distributor that partitions work across CPU cores.
 
@@ -11,9 +11,9 @@ defmodule Cloudmsg.Manifold.Partitioner do
 
   require Logger
 
-  alias Cloudmsg.Manifold.{Worker, Utils}
+  alias Crossroad.Manifold.{Worker, Utils}
 
-  @gen_module Application.compile_env(:cloudmsg_manifold, :gen_module, GenServer)
+  @gen_module Application.compile_env(:crossroad_manifold, :gen_module, GenServer)
 
   ## Client API
 

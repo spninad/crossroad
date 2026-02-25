@@ -7,18 +7,18 @@
 # General application configuration
 import Config
 
-config :cloudmsg,
+config :crossroad,
   generators: [timestamp_type: :utc_datetime]
 
 # Configure the endpoint
-config :cloudmsg, CloudmsgWeb.Endpoint,
+config :crossroad, CrossroadWeb.Endpoint,
   url: [host: "localhost"],
   adapter: Bandit.PhoenixAdapter,
   render_errors: [
-    formats: [html: CloudmsgWeb.ErrorHTML, json: CloudmsgWeb.ErrorJSON],
+    formats: [html: CrossroadWeb.ErrorHTML, json: CrossroadWeb.ErrorJSON],
     layout: false
   ],
-  pubsub_server: Cloudmsg.PubSub,
+  pubsub_server: Crossroad.PubSub,
   live_view: [signing_salt: "qpwN+A2H"]
 
 # Configure Elixir's Logger

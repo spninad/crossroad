@@ -1,9 +1,9 @@
-defmodule CloudmsgWeb.Layouts do
+defmodule CrossroadWeb.Layouts do
   @moduledoc """
   This module holds layouts and related functionality
   used by your application.
   """
-  use CloudmsgWeb, :html
+  use CrossroadWeb, :html
 
   # Embed all files in layouts/* within this module.
   # The default root.html.heex file contains the HTML

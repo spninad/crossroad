@@ -1,4 +1,4 @@
-defmodule Cloudmsg.Manifold.Worker do
+defmodule Crossroad.Manifold.Worker do
   @moduledoc """
   Final-stage message delivery worker.
   Receives partitioned messages from the Partitioner and calls Kernel.send/2
@@ -7,7 +7,7 @@ defmodule Cloudmsg.Manifold.Worker do
 
   use GenServer
 
-  alias Cloudmsg.Manifold.Utils
+  alias Crossroad.Manifold.Utils
 
   ## Client API
 

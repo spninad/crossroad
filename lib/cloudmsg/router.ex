@@ -1,4 +1,4 @@
-defmodule Cloudmsg.Router do
+defmodule Crossroad.Router do
   @moduledoc """
   Main API for the Manifold message broadcasting system.
 
@@ -14,7 +14,7 @@ defmodule Cloudmsg.Router do
 
   use Application
 
-  alias Cloudmsg.Manifold.{Partitioner, Sender, Utils}
+  alias Crossroad.Manifold.{Partitioner, Sender, Utils}
 
   @type pack_mode :: :binary | :etf | nil
   @type pack_mode_option :: {:pack_mode, pack_mode()}
@@ -22,11 +22,11 @@ defmodule Cloudmsg.Router do
   @type option :: pack_mode_option() | send_mode_option()
 
   @max_partitioners 32
-  @partitioners min(Application.compile_env(:cloudmsg, [:manifold, :partitioners], 1), @max_partitioners)
-  @workers_per_partitioner Application.compile_env(:cloudmsg, [:manifold, :workers_per_partitioner], System.schedulers_online())
+  @partitioners min(Application.compile_env(:crossroad, [:manifold, :partitioners], 1), @max_partitioners)
+  @workers_per_partitioner Application.compile_env(:crossroad, [:manifold, :workers_per_partitioner], System.schedulers_online())
 
   @max_senders 128
-  @senders min(Application.compile_env(:cloudmsg, [:manifold, :senders], System.schedulers_online()), @max_senders)
+  @senders min(Application.compile_env(:crossroad, [:manifold, :senders], System.schedulers_online()), @max_senders)
 
   ## OTP Application Callbacks
 
