@@ -50,6 +50,23 @@ defmodule Cloudmsg.Router do
     )
   end
 
+  @doc """
+  Child spec for use in the application supervisor.
+  """
+  def child_spec(_opts) do
+    %{
+      id: __MODULE__,
+      start: {__MODULE__, :start_link, []},
+      type: :supervisor,
+      restart: :permanent,
+      shutdown: :infinity
+    }
+  end
+
+  def start_link do
+    start(:normal, [])
+  end
+
   ## Client API
 
   @doc """
